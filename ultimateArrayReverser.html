@@ -1,0 +1,71 @@
+<script src="./jstinytest/tinytest.js"></script>
+
+<script>
+  /*
+  Ultimate Array Reverser (7kyu)
+  https://www.codewars.com/kata/5c3433a4d828182e420f4197
+
+  Task
+  Given an array of strings, reverse them and their order in such way that their length stays the same as the length of the original inputs.
+
+  Example:
+  Input:  {"I", "like", "big", "butts", "and", "I", "cannot", "lie!"}
+  Output: {"!", "eilt", "onn", "acIdn", "ast", "t", "ubgibe", "kilI"}
+  */
+
+  /*
+    1. [] => []
+    2. ["abc"] => ["cba"]
+    3. ["", ""] => ["", ""]
+    4. ["abc", "def"] = ["fed", "cba"]
+
+  */
+
+  function ultimateArrayReverser(arrayOfStrings) {
+    var reversedArray = [];
+
+    var stringFromArrayOfStrings = arrayOfStrings.join("");
+
+    var reverseCharsFromArrayOfStrings = stringFromArrayOfStrings
+      .split("")
+      .reverse();
+
+    for (var i = 0; i < arrayOfStrings.length; i++) {
+      var newElement = reverseCharsFromArrayOfStrings
+        .splice(0, arrayOfStrings[i].length)
+        .join("");
+      reversedArray.push(newElement);
+    }
+
+    return reversedArray;
+  }
+
+  tests({
+    "it should return an array": function() {
+      eq(Array.isArray(ultimateArrayReverser([])), true);
+    },
+    "it should return reversed string in form of an array": function() {
+      eq(ultimateArrayReverser(["abc"]), ["cba"][0]);
+    },
+    "the length of the output array should be the same as input array": function() {
+      eq(ultimateArrayReverser(["1", "2"]).length, 2);
+    },
+    "the length of each element of the output array should be the same as input": function() {
+      eq(ultimateArrayReverser(["aaa"])[0].length, 3);
+    }
+  });
+
+  console.log(["I", "like", "big", "butts", "and", "I", "cannot", "lie!"]);
+  console.log(
+    ultimateArrayReverser([
+      "I",
+      "like",
+      "big",
+      "butts",
+      "and",
+      "I",
+      "cannot",
+      "lie!"
+    ])
+  );
+</script>
